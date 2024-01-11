@@ -1,4 +1,4 @@
 
 
 test:
-	glslViewer -l test.frag
+	glslViewer -l 001_test.frag
