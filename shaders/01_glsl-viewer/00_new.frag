@@ -8,46 +8,31 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-float plot(vec2 st, float pct){
-	//return  smoothstep( pct-0.02, pct, st.y) - smoothstep( pct, pct+0.02, st.y);
-	//return  sin(pct*st.y);
-	return  sin(pct*st.y)/cos(pct);
+vec3 colorA = vec3(0.149,0.141,0.912);
+vec3 colorB = vec3(1.000,0.833,0.224);
+
+float plot (vec2 st, float pct){
+  return  smoothstep( pct-0.01, pct, st.y) -
+          smoothstep( pct, pct+0.01, st.y);
 }
 
 void main() {
-	vec2 st       = gl_FragCoord.xy/u_resolution;
-
-	vec3 red      = vec3(1.0, 0.0, 0.0);
-	vec3 green    = vec3(0.0, 1.0, 0.0);
-	vec3 blue     = vec3(0.0, 0.0, 1.0);
-	vec3 yellow   = vec3(1.0, 1.0, 0.0);
-	vec3 magenta  = vec3(1.0, 0.0, 1.0);
-	vec3 cyan     = vec3(0.0, 1.0, 1.0);
-
-	int max = 6;
-	float speed = 0.3;
-	float time = u_time * speed;
-
-	float ys[6];
-	ys[0] = abs(mod(time + 0.0, 1.0) - 0.5) * 2.0;
-	ys[1] = abs(mod(time + 1.4, 1.0) - 0.5) * 2.0;
-	ys[2] = abs(mod(time + 1.7, 1.0) - 0.5) * 2.0;
-	ys[3] = sin(abs(mod(time + 0.0, PI)));
-	ys[4] = sin(abs(mod(time + 1.4, PI)));
-	ys[5] = sin(abs(mod(time + 1.7, PI)));
-
-	vec3 cs[6];
-	cs[0] = red;
-	cs[1] = green;
-	cs[2] = blue;
-	cs[3] = yellow;
-	cs[4] = magenta;
-	cs[5] = cyan;
-
+	vec2 st = gl_FragCoord.xy/u_resolution.xy;
 	vec3 color = vec3(0.0);
-	for (int i = 0; i < max; i++) {
-		color += plot(st, ys[i]) * cs[i];
-	}
-	gl_FragColor  = vec4(color,1.0);
+	vec3 pct = vec3(st.x);
+
+	float time = abs(mod(u_time, 2.0)-1.0);
+
+	pct.r = 1.0 * smoothstep(0.0, 1.0, st.x);
+	pct.g = 1.0 * 0.55;
+	pct.b = 1.0 * pow(st.x, 0.5);
+
+	color = mix(colorA, colorB, pct);
+	// Plot transition lines for each channel
+	color = mix(color,vec3(1.0,0.0,0.0),plot(st,pct.r));
+	color = mix(color,vec3(0.0,1.0,0.0),plot(st,pct.g));
+	color = mix(color,vec3(0.0,0.0,1.0),plot(st,pct.b));
+
+	gl_FragColor = vec4(color,1.0);
 }
 
