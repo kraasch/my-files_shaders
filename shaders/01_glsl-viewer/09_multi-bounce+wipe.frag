@@ -9,9 +9,7 @@ uniform vec2 u_mouse;
 uniform float u_time;
 
 float plot(vec2 st, float pct){
-	//return  smoothstep( pct-0.02, pct, st.y) - smoothstep( pct, pct+0.02, st.y);
-	//return  sin(pct*st.y);
-	return  sin(pct*st.y)/cos(pct);
+	return  smoothstep( pct-0.02, pct, st.y) - smoothstep( pct, pct+0.02, st.y);
 }
 
 void main() {
