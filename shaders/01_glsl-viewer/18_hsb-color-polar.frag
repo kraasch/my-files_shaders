@@ -6,7 +6,7 @@ precision mediump float;
 // source: https://thebookofshaders.com/06/
 
 #define PI  3.14159265359
-#define RHO 6.28318530718
+#define TAU 6.28318530718
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -40,7 +40,7 @@ void main(){
 
 	// Map the angle (-PI to PI) to the Hue (from 0 to 1)
 	// and the Saturation to the radius
-	color = hsb2rgb(vec3((angle/RHO)+0.5,radius,1.0));
+	color = hsb2rgb(vec3((angle/TAU)+0.5,radius,1.0));
 
 	if (length(st - 0.5) < 0.5) {
 		gl_FragColor = vec4(color,1.0);
