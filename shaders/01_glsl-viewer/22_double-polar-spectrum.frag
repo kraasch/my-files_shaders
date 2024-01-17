@@ -15,15 +15,6 @@ uniform float u_time;
 vec3 hsb2rgb( in vec3 c ){
 	vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0,0.0,1.0);
 	rgb = rgb*rgb*(3.0-2.0*rgb);
-	if (rgb.r > 0.0) {
-		rgb.r += 0.5;
-	}
-	if (rgb.g > 0.0) {
-		rgb.g += 0.5;
-	}
-	if (rgb.b > 0.0) {
-		rgb.b += 0.5;
-	}
 	return c.z * mix( vec3(1.0), rgb, c.y);
 }
 
@@ -41,7 +32,7 @@ void main() {
 
 	float hue     = (angle/TAU) + 0.5;
 	hue           = abs(1.0 - (hue * 2.0));
-	color         = vec3(hue, radius * 2.0, 1.0);
+	color         = vec3(hue, radius, 1.0);
 	color         = hsb2rgb(color);
 
 	if (length(st - 0.5) < 0.5) {
