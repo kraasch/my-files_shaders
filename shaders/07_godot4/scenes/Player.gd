@@ -36,6 +36,7 @@ func _input(event):
 		field.text = message
 	# handle mouse movements.
 	if event is InputEventMouseMotion:
+		pivot.rotation.x -= clamp(event.relative.y / sensitivity, deg_to_rad(-45), deg_to_rad(90))
 		pivot.rotation.y -= event.relative.x / sensitivity
 
 func pick_shader(index_increment : int) -> String:
