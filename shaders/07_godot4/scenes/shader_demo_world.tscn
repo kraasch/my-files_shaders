@@ -42,17 +42,20 @@ material = SubResource("ShaderMaterial_uqgxl")
 
 [node name="ShaderDemoWorld" type="Node3D"]
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("field", "mesh")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("field", "mesh", "pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50794, 0)
 script = ExtResource("1_8pg42")
 field = NodePath("../Hud/TextEdit")
 mesh = NodePath("../DemoObject")
+pivot = NodePath("CameraPivot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.509813, 4.25329)
 shape = SubResource("CapsuleShape3D_lrf3a")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="CameraPivot" type="Node3D" parent="Player"]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.949499, 4.26544)
 
 [node name="World" type="Node3D" parent="."]

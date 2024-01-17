@@ -1,7 +1,11 @@
 extends CharacterBody3D
 
-@export var field : TextEdit = null;
-@export var mesh : MeshInstance3D = null;
+# source: for camera pivot ... Godot 4 Third Person Mouse Look Camera Control  by Learn ICT Now https://www.youtube.com/watch?v=RO7sAUY5sxA
+
+@export var field : TextEdit = null
+@export var mesh : MeshInstance3D = null
+@export var sensitivity : float = 1000.0
+@export var pivot : Node3D = null
 
 @onready var shaders = [
 	preload("res://shaders/tron.gdshader"),
@@ -21,7 +25,8 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func _process(delta):
+func _input(event):
+	# handle selections.
 	var prev = 1 if Input.is_action_pressed("my_prev") else 0
 	var next = 1 if Input.is_action_pressed("my_next") else 0
 	var dir = next - prev;
@@ -29,7 +34,10 @@ func _process(delta):
 	if dir == 1 or dir == -1:
 		message = pick_shader(dir)
 		field.text = message
-	
+	# handle mouse movements.
+	if event is InputEventMouseMotion:
+		pivot.rotation.y -= event.relative.x / sensitivity
+
 func pick_shader(index_increment : int) -> String:
 	var min : int = 0
 	var max : int = len(shaders) - 1
