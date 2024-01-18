@@ -1,38 +1,35 @@
+
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-#define PI 3.14159265359
+// source: https://thebookofshaders.com/07/
+
+#define PI  3.14159265359
+#define TAU 6.28318530718
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-vec3 colorA = vec3(0.149,0.141,0.912);
-vec3 colorB = vec3(1.000,0.833,0.224);
-
-float plot (vec2 st, float pct){
-  return  smoothstep( pct-0.01, pct, st.y) -
-          smoothstep( pct, pct+0.01, st.y);
-}
-
 void main() {
-	vec2 st = gl_FragCoord.xy/u_resolution.xy;
-	vec3 color = vec3(0.0);
-	vec3 pct = vec3(st.x);
 
-	float time = abs(mod(u_time, 2.0)-1.0);
+	float speed   = 0.5;
+	float time    = mod(u_time * speed, 1.0);
 
-	pct.r = 1.0 * smoothstep(0.0, 1.0, st.x);
-	pct.g = 1.0 * 0.55;
-	pct.b = 1.0 * pow(st.x, 0.5);
+	vec2 st       = gl_FragCoord.xy/u_resolution;
+	vec3 color    = vec3(0.0);
 
-	color = mix(colorA, colorB, pct);
-	// Plot transition lines for each channel
-	color = mix(color,vec3(1.0,0.0,0.0),plot(st,pct.r));
-	color = mix(color,vec3(0.0,1.0,0.0),plot(st,pct.g));
-	color = mix(color,vec3(0.0,0.0,1.0),plot(st,pct.b));
+	vec2 toCenter = vec2(0.5)-st;
+	float angle   = atan(toCenter.y, toCenter.x); // + (TAU * time);
+	float radius  = length(toCenter)*2.0;
 
-	gl_FragColor = vec4(color,1.0);
+	float hue     = (angle/TAU) + 0.5;
+	hue           = abs(1.0 - (hue * 2.0));
+	color         = vec3(hue, radius, 1.0);
+
+	if (length(st - 0.5) < 0.5) {
+		gl_FragColor = vec4(color,1.0);
+	}
 }
 
