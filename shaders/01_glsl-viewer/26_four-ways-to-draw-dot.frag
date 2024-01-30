@@ -33,17 +33,23 @@ void main() {
 	}
 
 	// draw cricle with DISTANCE.
-	float location_g = 0.5;
+	float location_g = 0.55;
 	if (distance(uv, vec2(location_g)) < radius) {
 		gl_FragColor = vec4(g, 1.0);
 	}
 
 	// draw cricle with SQRT.
-	float location_b = 0.3;
+	float location_b = 0.4;
 	vec2 point = vec2(uv.x - location_b, uv.y - location_b);
 	if (sqrt(point.x*point.x + point.y*point.y) < radius) {
 		gl_FragColor = vec4(b, 1.0);
 	}
 
+	// draw cricle with DOT product.
+	float location_c = 0.25;
+	vec2 dist = uv - vec2(location_c);
+	if (dot(dist, dist) < radius * radius) {
+		gl_FragColor = vec4(c, 1.0);
+	}
 }
 
