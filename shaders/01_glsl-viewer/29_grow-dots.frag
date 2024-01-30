@@ -3,6 +3,8 @@
 precision mediump float;
 #endif
 
+// source: https://thebookofshaders.com/07/
+
 #define PI 3.14159265359
 
 uniform vec2 u_resolution;
