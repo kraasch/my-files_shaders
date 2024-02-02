@@ -28,18 +28,36 @@ void main(){
 
 	vec3 color = vec3(0.0);
 	float d = 0.0;
+
 	// Remap the space to -1. to 1.
-	uv = uv *2.-1.;
+	uv = uv * 2.0 - 1.0;
+
 	// Make the distance field
-	d = length( abs(uv)-.3 );
-	// d = length( min(abs(uv)-.3,0.) );
-	// d = length( max(abs(uv)-.3,0.) );
+	vec2 uv2 = abs(uv) - 0.3;
+	d = length(uv2);
+	// d = length(min(uv2, 0.0));
+	// d = length(max(uv2, 0.0));
+	// d = max(uv2.x, uv2.y);
+	// d = min(uv2.x, uv2.y);
+	// d = uv2.x;
+	// d = abs(uv.x - 0.2);
+	// d = abs(uv2.x);
+	// d = abs(uv.x * uv.y);
+	// d = abs(uv.x + uv.y);
+	// d = abs(uv.y / uv.x);
+	// d = abs(uv.x / uv.y);
+
 	// Visualize the distance field
-	gl_FragColor = vec4(vec3(fract(d*10.0)),1.0);
-	// Drawing with the distance field
-	// gl_FragColor = vec4(vec3( step(.3,d) ),1.0);
-	// gl_FragColor = vec4(vec3( step(.3,d) * step(d,.4)),1.0);
-	// gl_FragColor = vec4(vec3( smoothstep(.3,.4,d)* smoothstep(.6,.5,d)) ,1.0);
+	float res = 0.0;
+	// res = fract(d);
+	// res = fract(d * 2.0);
+	// res = fract(d * 4.0);
+	res = fract(d * 10.0);
+	// res = step(0.3, d);
+	// res = step(0.3, d) * step(d, 0.4);
+	// res = smoothstep(0.3, 0.4, d) * smoothstep(0.6, 0.5, d);
+	// res = step(d, 1.0);
+	gl_FragColor = vec4(vec3(res), 1.0);
 
 }
 
