@@ -31,6 +31,7 @@ void main(){
 
 	// Remap the space to -1. to 1.
 	uv = uv * 2.0 - 1.0;
+	// uv = vec2(0.5) - uv;
 
 	// Make the distance field
 	vec2 uv2 = abs(uv) - 0.3;
@@ -52,9 +53,11 @@ void main(){
 	// res = fract(d);
 	// res = fract(d * 2.0);
 	// res = fract(d * 4.0);
+	// res = fract(d * 20.0);
 	res = fract(d * 10.0);
 	// res = step(0.3, d);
 	// res = step(0.3, d) * step(d, 0.4);
+	// res = step(0.4, d) * step(d, 0.5);
 	// res = smoothstep(0.3, 0.4, d) * smoothstep(0.6, 0.5, d);
 	// res = step(d, 1.0);
 	gl_FragColor = vec4(vec3(res), 1.0);
