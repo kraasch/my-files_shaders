@@ -15,6 +15,6 @@ vulkan::
 
  - https://vkguide.dev/docs/chapter-2/triangle_walkthrough/
 
-| | | |
+|<img width="30" alt="demo" src="./examples/01.png">| | |
 |:---:|:---:|:---:|
-|<img width="300" alt="demo" src="./examples/01.png">| | |
+|<img width="30" alt="demo" src="./examples/01.png">| | |
