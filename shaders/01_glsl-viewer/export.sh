@@ -13,7 +13,9 @@ for x in {01..37}; do
 	if $(test -z "$res"); then
 		mv 00000.png ../showcase/"$x".png
 	else
-		ffmpeg -framerate "$frame_rate" -pattern_type glob -i '*.png' -c:v libx264 -pix_fmt yuv420p ../showcase/"$x".mp4
+		# NOTE: for mp4 export.
+		# ffmpeg -framerate "$frame_rate" -pattern_type glob -i '*.png' -c:v libx264 -pix_fmt yuv420p ../showcase/"$x".mp4
+		convert -delay 10 -loop 0 *.png ../showcase/"$x".gif
 	fi
 	cd ..
 done
