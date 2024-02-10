@@ -1,4 +1,4 @@
-# try-out_glsl_shaders
+# my-files_shaders
 
 
 ## sorces
