@@ -49,18 +49,26 @@ void main() {
   float time     = mod(u_time     * t_speed, 1.0);
   float twist    = time * TAU;
   vec3  color    = vec3(0.0);
-
+  vec3  c0       = vec3(0.3, 0.3, 0.3);
+  vec3  c1       = vec3(0.2, 0.1, 0.8);
+  vec3  c2       = vec3(0.9, 0.8, 0.3);
+  vec3  c3       = vec3(0.3, 0.4, 0.8);
+  c2 = color_r;
 
   float radius_a = 0.02;
-  float radius_b = 0.1;
+  float radius_b = 0.11;
   float radius_c = 0.75;
   float radius_d = 0.05;
+  float zoom_a = 9.0;
+  float zoom_b = 2.0;
+  float sway_a = 0.02;
+  float sway_b = 0.08;
 
   vec2 grid1 = vec2(0.0);
   vec2 grid2 = vec2(0.0);
 
-  grid1 = tile(uv + vec2(cos(u_time), sin(u_time)) * 0.01, 8.0);
-  grid2 = tile(uv + vec2(cos(u_time), sin(u_time)) * 0.02, 2.0);
+  grid1 = tile(uv + vec2(cos(u_time), sin(u_time)) * sway_a, zoom_a);
+  grid2 = tile(uv + vec2(cos(u_time), sin(u_time)) * sway_b, zoom_b);
 
   float circle_e = circlePattern(grid2, radius_a);
   float circle_d = circlePattern(grid2, radius_b);
@@ -68,8 +76,17 @@ void main() {
   float circle_b = circlePattern(grid1, radius_c);
   float circle_a = circle_b - circle_c;
 
-  color += mix(color_y, color_r, circle_a);
-  color = mix(color,   color_g, circle_d) - circle_e;
+  color += mix(c0,   c1, circle_a);
+
+  vec3 actual_color = vec3(0.0);
+  vec3 COLS[4];
+  COLS[0] = c0;
+  COLS[1] = c1;
+  COLS[2] = c2;
+  COLS[3] = c3;
+  actual_color = COLS[int(time * 3.0)];
+
+  color = mix(color, c2, circle_d) - actual_color;
 
   gl_FragColor = vec4(color, 1.0);
 }
