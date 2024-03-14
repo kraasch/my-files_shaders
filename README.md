@@ -10,6 +10,7 @@ reading:
 art inspiration:
 
  - [Why Zellige Tiles Are So Expensive | So Expensive by Business Insider India ](https://www.youtube.com/watch?v=8VBu2n8GFQ0)
+ - [Curves we (mostly) don't learn in high school (and applications)](https://www.youtube.com/watch?v=3izFMB91K_Q)
 
 tools:
 
