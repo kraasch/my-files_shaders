@@ -26,6 +26,10 @@ float circle(vec2 p, vec2 c) {
   return smoothstep(d, 0.0, d - 0.02);
 }
 
+vec2 bezier(vec2 a, vec2 b, vec2 c, float t) {
+  return mix(mix(a,c,t), mix(c,b,t), t);
+}
+
 float line(vec2 p, vec2 a, vec2 b) {
   vec2 pa = p-a;
   vec2 ba = b-a;
@@ -54,19 +58,34 @@ void main() {
   vec2 A = vec2(-0.4, -0.2);
   vec2 B = vec2(0.4, 0.2);
   vec2 C = mouse.xy;
-  vec2 AC = mix(A, C, t);
-  vec2 BC = mix(B, C, t);
+  vec2 AC  = mix(A, C, t);
+  vec2 BC  = mix(B, C, 1.0-t);
+  vec2 ACB = mix(AC, BC, t);
 
   color += color_r * circle(uv, A);
   color += color_b * circle(uv, B);
   color += color_c * circle(uv, C);
-  color += color_y * circle(uv, AC);
-  color += color_m * circle(uv, BC);
+  color += color_w * circle(uv, ACB);
 
-  color += line(uv, A, C);
-  color += line(uv, C, B);
+  if (pendulum < 0.5) {
+    color += color_y * circle(uv, AC);
+    color += color_m * circle(uv, BC);
+    color += line(uv, A, C);
+    color += line(uv, C, B);
+    color += line(uv, AC, BC);
+  }
+
+  int NUM = 10;
+  vec2 pp = A;
+  vec2 p  = A;
+
+  for (int i = 1; i <= NUM; i++) {
+    t = float(i)/float(NUM);
+    p = bezier(A, B, C, t);
+    color = max(color, line(uv, p, pp));
+    pp = p;
+  }
 
   gl_FragColor = vec4(color, 1.0);
-
 }
 
