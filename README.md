@@ -7,6 +7,10 @@ reading:
 
  - https://learnopengl.com/Getting-started/Shaders
 
+art inspiration:
+
+ - [Why Zellige Tiles Are So Expensive | So Expensive by Business Insider India ](https://www.youtube.com/watch?v=8VBu2n8GFQ0)
+
 tools:
 
  - https://github.com/patriciogonzalezvivo/glslViewer
