@@ -7,10 +7,10 @@ function append_readme() {
 	ending="$2"
 	beg="<img width='100' alt='demo' src='./examples/"
 	end="'>|"
-	echo "${beg}${num}.${ending}${end}" >> README.md.example
+	echo "${beg}${num}.${ending}${end}" >>README.md.example
 }
 
-for x in {01..37}; do
+for x in {01..52}; do
 	frame_rate=5
 	cp "$x"* 00_new.frag
 	rm -rf ./abcxyz
