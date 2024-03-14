@@ -3,7 +3,7 @@
 precision mediump float;
 #endif
 
-// source:  Live Coding: Cairo Tiling Explained! by The Art of Code https://www.youtube.com/watch?v=51LwM2R_e_o
+// source:
 
 #define PI 3.14159265359
 #define TAU 6.28318530718
